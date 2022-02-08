@@ -12,5 +12,4 @@ expect(titleValue).toHaveTextContent("ToDo List");
 
 expect(screen.getByRole('button')).toBeEnabled();
 
-expect(screen.getByRole('ListItem')).toBeInTheDocument();
 });
