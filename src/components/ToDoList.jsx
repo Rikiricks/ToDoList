@@ -6,7 +6,7 @@ function ToDoList() {
     const [title, setTitle] = useState("");
 
     useEffect(()=>{
-       
+        
         const data = JSON.parse(localStorage.getItem("data"));
         setList(data || []);
     },[]);
@@ -30,7 +30,7 @@ function ToDoList() {
     
 
     const handleClick = (e) => {
-        debugger;
+   
         e.preventDefault();
         const index = list.length > 0 ? getId() : 0;
         const data = {
