@@ -1,10 +1,10 @@
 
 function ListItem(props) {
-    debugger;
+    
     return (
         <>
         {props.list && props.list.map((item) => {
-            return <label key={item.id} className="list-group-item">
+            return <label data-testid={`item-${item.id}`} key={item.id} className="list-group-item">
 
                 <input style={{ float: "left" }} onChange={props.handleCheck} defaultChecked={item.isDone} className="form-check-input me-1" type="checkbox" value={item.id} />
                 {item.title}

@@ -21,7 +21,7 @@ it("renders with or without title", () => {
     act(() => {
       render(<ToDoList />, container);
     });
-    console.log(container.querySelector("h1").textContent);
+    // console.log(container.querySelector("h1").textContent);
     expect(container.querySelector("h1").textContent).toBe("ToDo List"); 
     
   });

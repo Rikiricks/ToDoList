@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <header className="App-header">
      
-      <Timer></Timer>
+      <ToDoList />
 
       </header>
     </div>
