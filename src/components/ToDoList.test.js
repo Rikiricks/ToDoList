@@ -117,7 +117,7 @@ describe('fire action event', () => {
         
         fireEvent.click(screen.getByTestId("item-2").querySelector(".btn-danger"));
         
-        expect(handleRemove).toHaveBeenCalledTimes(1);
-      
+        expect(handleRemove).toHaveBeenCalledTimes(1);      
     });
 });
+
