@@ -27,20 +27,58 @@ const users = [
 //         </FetchMock>
 //     )
 // }
-global.fetch = jest.fn(() => Promise.resolve({
-    json: () => Promise.resolve(users)
-}));
+
+function setupFetchStub(data) {
+  return function fetchStub(_url) {
+    return new Promise((resolve) => {
+      resolve({
+        json: () =>
+          Promise.resolve({
+            data,
+          }),
+      })
+    })
+  }
+}
+// global.fetch = jest.fn(() => Promise.resolve({
+//     json: () => Promise.resolve(users)
+// }));
+
+  // beforeEach(async ()=>{
+  //     fetch.mockClear();
+  //      // userList = await getUsers();
+  //   })
 
 
 
 describe("testing api response", ()=>{
-    let userList;
-   
-    beforeEach(async ()=>{
-        userList = await getUsers();
-    })
+  
     test('should render the users list', async () => {
-        console.log("UserList====", userList);
-        expect(userList.length).toEqual(users.length);
+      jest.spyOn(global, "fetch").mockImplementation(setupFetchStub(users))
+         const userList = await getUsers();       
+        // console.log("UserList====", userList);
+        expect(userList.data.length).toEqual(users.length);
+        expect(fetch).toHaveBeenCalledTimes(1);
+        global.fetch.mockClear();
       });
+
+      test('returns null when error occured', async ()=>{
+        fetch.mockImplementationOnce(()=> Promise.reject("API is down"));
+        const userList = await getUsers();
+        // console.log("UserList====", userList);
+        expect(userList).toEqual(null);
+      expect(fetch).toHaveBeenCalledWith('http://jsonplaceholder.typicode.com/users')
+
+      });
+});
+
+describe("testing api response in dom", ()=>{
+  test("should renders user's list", async() =>{
+    fetch.mockResponseOnce(users);
+    const {findByText,getByText, findByRole} = render(<UserList/>);
+    //const list = await findByRole("list");
+    //console.log("UserList===", list.children);
+    expect(getByText(/Leanne Graham/i)).toBeInTheDocument();
+    // expect(getByText(users[1].name)).toBeInTheDocument();
+  });
 });
